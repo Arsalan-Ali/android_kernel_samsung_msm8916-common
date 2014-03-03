@@ -94,7 +94,7 @@ static void put_compound_page(struct page *page)
 
 	if (unlikely(PageTail(page))) {
 		/* __split_huge_page_refcount can run under us */
-		struct page *page_head = compound_trans_head(page);
+		struct page *page_head = compound_head(page);
 
 		if (likely(page != page_head &&
 			   get_page_unless_zero(page_head))) {
@@ -209,7 +209,7 @@ bool __get_page_tail(struct page *page)
 	} else {
 		unsigned long flags;
 
-		page_head = compound_trans_head(page);
+		page_head = compound_head(page);
 		if (likely(page != page_head &&
 					get_page_unless_zero(page_head))) {
 
