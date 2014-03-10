@@ -1092,6 +1092,9 @@ static int mdss_fb_blank_sub(int blank_mode, struct fb_info *info,
 	mutex_unlock(&mfd->ctx_lock);
 	sysfs_notify(&mfd->fbi->dev->kobj, NULL, "show_blank_event");
 
+	/* Notify listeners */
+	sysfs_notify(&mfd->fbi->dev->kobj, NULL, "show_blank_event");
+
 	return ret;
 }
 
