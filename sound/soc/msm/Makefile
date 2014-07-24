@@ -90,3 +90,7 @@ obj-$(CONFIG_SND_SOC_MSM8X16) += snd-soc-msm8x16.o
 # for MSM PLUTONIUM sound card driver
 snd-soc-msmplutonium-objs := msmplutonium.o
 obj-$(CONFIG_SND_SOC_MSMPLUTONIUM) += snd-soc-msmplutonium.o
+
+# for MSMZIRC sound card driver
+snd-soc-msmzirc-objs := msmzirc.o
+obj-$(CONFIG_SND_SOC_MSMZIRC) += snd-soc-msmzirc.o
