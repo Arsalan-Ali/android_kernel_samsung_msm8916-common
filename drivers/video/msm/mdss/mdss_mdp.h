@@ -48,6 +48,7 @@
 #define HORSCALER_COEFF_NUM		17
 #define MDP_MIN_VBP		4
 #define MAX_FREE_LIST_SIZE	12
+#define OVERLAY_MAX		10
 
 #define C3_ALPHA	3	/* alpha */
 #define C2_R_Cr		2	/* R/Cr */
@@ -120,6 +121,13 @@ enum mdp_wfd_blk_type {
 struct mdss_mdp_ctl;
 typedef void (*mdp_vsync_handler_t)(struct mdss_mdp_ctl *, ktime_t);
 
+struct mdss_mdp_img_rect {
+	u16 x;
+	u16 y;
+	u16 w;
+	u16 h;
+};
+
 struct mdss_mdp_vsync_handler {
 	bool enabled;
 	bool cmd_post_flush;
@@ -189,6 +197,7 @@ struct mdss_mdp_ctl {
 	struct mdss_rect roi;
 	struct mdss_rect roi_bkup;
 	u8 roi_changed;
+	u8 valid_roi;
 
 	int (*start_fnc) (struct mdss_mdp_ctl *ctl);
 	int (*stop_fnc) (struct mdss_mdp_ctl *ctl);
@@ -747,9 +756,12 @@ int mdss_mdp_get_img(struct msmfb_data *img, struct mdss_mdp_img_data *data);
 int mdss_mdp_overlay_free_buf(struct mdss_mdp_data *data);
 u32 mdss_get_panel_framerate(struct msm_fb_data_type *mfd);
 int mdss_mdp_calc_phase_step(u32 src, u32 dst, u32 *out_phase);
-void mdss_mdp_intersect_rect(struct mdss_rect *res_rect,
+void mdss_mdp_intersect_rect(struct mdss_mdp_img_rect *res_rect,
+	const struct mdss_mdp_img_rect *dst_rect,
+	const struct mdss_mdp_img_rect *sci_rect);
+/*void mdss_mdp_intersect_rect(struct mdss_rect *res_rect,
 	const struct mdss_rect *dst_rect,
-	const struct mdss_rect *sci_rect);
+	const struct mdss_rect *sci_rect);*/
 void mdss_mdp_crop_rect(struct mdss_rect *src_rect,
 	struct mdss_rect *dst_rect,
 	const struct mdss_rect *sci_rect);

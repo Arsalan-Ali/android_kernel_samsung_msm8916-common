@@ -1060,6 +1060,9 @@ struct mdp_display_commit {
 	uint32_t wait_for_finish;
 	struct fb_var_screeninfo var;
 	struct mdp_rect roi;
+	/* Userspace wants this renamed... */
+	struct mdp_rect l_roi;
+	struct mdp_rect r_roi;
 };
 
 /**
@@ -1093,7 +1096,7 @@ struct mdp_mixer_info {
 	int z_order;
 };
 
-#define MAX_PIPE_PER_MIXER  4
+#define MAX_PIPE_PER_MIXER  7
 
 struct msmfb_mixer_info_req {
 	int mixer_num;
