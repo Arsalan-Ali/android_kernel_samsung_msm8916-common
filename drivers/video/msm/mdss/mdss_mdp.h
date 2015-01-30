@@ -756,12 +756,9 @@ int mdss_mdp_get_img(struct msmfb_data *img, struct mdss_mdp_img_data *data);
 int mdss_mdp_overlay_free_buf(struct mdss_mdp_data *data);
 u32 mdss_get_panel_framerate(struct msm_fb_data_type *mfd);
 int mdss_mdp_calc_phase_step(u32 src, u32 dst, u32 *out_phase);
-void mdss_mdp_intersect_rect(struct mdss_mdp_img_rect *res_rect,
-	const struct mdss_mdp_img_rect *dst_rect,
-	const struct mdss_mdp_img_rect *sci_rect);
-/*void mdss_mdp_intersect_rect(struct mdss_rect *res_rect,
+void mdss_mdp_intersect_rect(struct mdss_rect *res_rect,
 	const struct mdss_rect *dst_rect,
-	const struct mdss_rect *sci_rect);*/
+	const struct mdss_rect *sci_rect);
 void mdss_mdp_crop_rect(struct mdss_rect *src_rect,
 	struct mdss_rect *dst_rect,
 	const struct mdss_rect *sci_rect);

@@ -19,6 +19,7 @@
 #include <linux/mutex.h>
 
 #include "mdss_mdp.h"
+#include "mdss_mdp_trace.h"
 
 #define SMP_MB_SIZE		(mdss_res->smp_mb_size)
 #define SMP_MB_CNT		(mdss_res->smp_mb_cnt)
@@ -1005,25 +1006,7 @@ error:
 	return rc;
 }
 
-void mdss_mdp_crop_rect(struct mdss_mdp_img_rect *src_rect,
-	struct mdss_mdp_img_rect *dst_rect,
-	const struct mdss_mdp_img_rect *sci_rect)
-{
-	struct mdss_mdp_img_rect res;
-	mdss_mdp_intersect_rect(&res, dst_rect, sci_rect);
 
-	if (res.w && res.h) {
-		if ((res.w != dst_rect->w) || (res.h != dst_rect->h)) {
-			src_rect->x = src_rect->x + (res.x - dst_rect->x);
-			src_rect->y = src_rect->y + (res.y - dst_rect->y);
-			src_rect->w = res.w;
-			src_rect->h = res.h;
-		}
-		*dst_rect = (struct mdss_mdp_img_rect)
-			{(res.x - sci_rect->x), (res.y - sci_rect->y),
-			res.w, res.h};
-	}
-}
 
 static int mdss_mdp_image_setup(struct mdss_mdp_pipe *pipe,
 					struct mdss_mdp_data *data)
@@ -1034,8 +1017,7 @@ static int mdss_mdp_image_setup(struct mdss_mdp_pipe *pipe,
 	u32 tmp_src_xy, tmp_src_size;
 	int ret = 0;
 	struct mdss_data_type *mdata = mdss_mdp_get_mdata();
-	//struct mdss_rect sci, dst, src;
-	struct mdss_mdp_img_rect sci, dst, src;
+	struct mdss_rect sci, dst, src;
 	bool rotation = false;
 
 	pr_debug("pnum=%d wh=%dx%d src={%d,%d,%d,%d} dst={%d,%d,%d,%d}\n",
