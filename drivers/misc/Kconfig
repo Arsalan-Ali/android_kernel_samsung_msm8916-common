@@ -394,6 +394,7 @@ config SAMSUNG_JACK
 
 	 To samsung jack is reviewed and supported in all the
 	 samsung devices.
+
 config EARJACK_ADC_SYSFS
 	bool "EarJack & BTN adc sysfs"
 	depends on SAMSUNG_JACK
@@ -401,6 +402,7 @@ config EARJACK_ADC_SYSFS
 	help
 	This is sysfs for sec_jack driver jack type and
 	btn type adc values.
+
 config TIMA_LOG
 	tristate "Support for dumping TIMA log"
 	default y
